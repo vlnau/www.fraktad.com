@@ -185,6 +185,21 @@ const parseResendError = async (response: Response): Promise<string> => {
   }
 };
 
+const buildResendFailureMessage = (
+  status: number,
+  detail: string,
+  requestId: string,
+): string => {
+  const parts = [`Resend HTTP ${status}`];
+  if (detail) {
+    parts.push(detail);
+  }
+  if (requestId) {
+    parts.push(`requestId: ${requestId}`);
+  }
+  return `Nie udało się wysłać wiadomości e-mail (${parts.join(' | ')}).`;
+};
+
 export const onRequestOptions = async (): Promise<Response> =>
   new Response(null, {
     status: 204,
@@ -293,24 +308,56 @@ export const onRequestPost = async ({
     reply_to: payload.email,
   };
 
-  const resendResponse = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      authorization: `Bearer ${resendApiKey}`,
-      'content-type': 'application/json; charset=UTF-8',
-      'user-agent': RESEND_USER_AGENT,
-    },
-    body: JSON.stringify(resendPayload),
-  });
+  let resendResponse: Response;
+  try {
+    resendResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${resendApiKey}`,
+        'content-type': 'application/json; charset=UTF-8',
+        'user-agent': RESEND_USER_AGENT,
+      },
+      body: JSON.stringify(resendPayload),
+    });
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : 'Unknown error';
+    return jsonResponse(
+      {
+        ok: false,
+        message:
+          'Nie udało się połączyć z usługą wysyłki e-mail (Resend network error).',
+        error: {
+          provider: 'resend',
+          stage: 'request',
+          detail: reason,
+        },
+      },
+      502,
+    );
+  }
 
   if (!resendResponse.ok) {
     const resendErrorMessage = await parseResendError(resendResponse);
-    const details = resendErrorMessage ? ` (${resendErrorMessage})` : '';
+    const resendRequestId = normalizeText(
+      resendResponse.headers.get('x-request-id') ||
+        resendResponse.headers.get('cf-ray'),
+    );
+    const message = buildResendFailureMessage(
+      resendResponse.status,
+      resendErrorMessage,
+      resendRequestId,
+    );
 
     return jsonResponse(
       {
         ok: false,
-        message: `Nie udało się wysłać wiadomości e-mail${details}.`,
+        message,
+        error: {
+          provider: 'resend',
+          status: resendResponse.status,
+          detail: resendErrorMessage || null,
+          requestId: resendRequestId || null,
+        },
       },
       502,
     );
