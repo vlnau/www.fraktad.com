@@ -37,6 +37,11 @@ Set these environment variables in Cloudflare Pages:
 - `CONTACT_FROM_EMAIL` (required): verified sender in Resend
 - `TURNSTILE_SECRET` (optional): enables server-side captcha validation
 - `TURNSTILE_SITE_KEY` (optional, build variable): renders captcha widgets in forms
+- `GA4_MEASUREMENT_ID` (optional, build variable): enables Google Analytics (gtag.js)
+- `GOOGLE_TAG_MANAGER_ID` (optional, build variable): enables Google Tag Manager
+
+If you use GA4 through GTM, keep only `GOOGLE_TAG_MANAGER_ID` to avoid duplicate
+page-view tracking.
 
 ### Troubleshooting
 

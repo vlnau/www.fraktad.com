@@ -28,6 +28,8 @@ const socialLinks = [
 ];
 const integrations = {
   turnstileSiteKey: process.env.TURNSTILE_SITE_KEY || '',
+  ga4MeasurementId: process.env.GA4_MEASUREMENT_ID || '',
+  googleTagManagerId: process.env.GOOGLE_TAG_MANAGER_ID || '',
 };
 
 export default {
