@@ -1,0 +1,168 @@
+---
+pagination:
+  data: services
+  size: 1
+  alias: service
+permalink: "{{ service.slug }}/index.html"
+layout: layouts/base.html
+lang: pl
+bodyClass: min-h-screen bg-brand-white text-brand-ink
+eleventyComputed:
+  title: "{{ service.seo.title }}"
+  description: "{{ service.seo.description }}"
+---
+
+{% from "macros/ui.njk" import serviceOutcomeCard, serviceFeatureCard, serviceStepCard, faqItem %}
+
+<main class="bg-brand-white text-brand-ink w-full">
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-20">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div>
+        <span
+          class="bg-brand-lime text-brand-ink inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold tracking-wide"
+        >
+          {{ service.hero.badge | default('Usługa') }}
+        </span>
+
+        <h1
+          class="font-heading mt-6 text-4xl leading-tight font-bold tracking-tight sm:text-5xl"
+        >
+          {{ service.hero.headline }}
+        </h1>
+
+        <p class="text-brand-ink/80 mt-6 text-base leading-relaxed sm:text-lg">
+          {{ service.hero.lead }}
+        </p>
+
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="/#contact"
+            data-open-hero-contact
+            class="bg-brand-blue text-brand-white inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-semibold"
+          >
+            Umów konsultację
+          </a>
+          <a
+            href="/#services"
+            class="border-brand-ink/20 hover:border-brand-blue inline-flex items-center justify-center rounded-full border px-8 py-4 text-sm font-semibold transition-colors"
+          >
+            Zobacz wszystkie usługi
+          </a>
+        </div>
+      </div>
+
+      {% if service.hero.image %}
+        <article class="border-brand-ink/10 overflow-hidden rounded-4xl border">
+          <div class="relative aspect-[16/10]">
+            {% image service.hero.image.src, service.hero.image.alt,
+            service.hero.image.className, '(min-width: 1024px) 48vw, 100vw',
+            '640,960,1200' %}
+            <div
+              class="{{ service.hero.image.overlayClass }} absolute inset-0 bg-linear-to-t"
+            ></div>
+          </div>
+        </article>
+      {% elif service.hero.checklist %}
+        <article
+          class="bg-brand-ink text-brand-white border-brand-ink/10 rounded-4xl border p-8 sm:p-10"
+        >
+          <p class="text-brand-white/70 text-sm font-semibold">
+            {{ service.hero.checklist.title }}
+          </p>
+          <div class="mt-6 space-y-4">
+            {% for item in service.hero.checklist.items %}
+              <div class="rounded-3xl bg-white/10 p-4">{{ item }}</div>
+            {% endfor %}
+          </div>
+        </article>
+      {% endif %}
+    </div>
+
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {% for item in service.outcomes %}
+        {{ serviceOutcomeCard(item) }}
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="bg-brand-white w-full">
+    <div class="mx-auto max-w-6xl px-4 pb-16 sm:px-8 sm:pb-20">
+      <div class="max-w-2xl">
+        <h2
+          class="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-5xl"
+        >
+          Co zawiera usługa
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {% for item in service.included %}
+          {{ serviceFeatureCard(item) }}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-ink text-brand-white w-full">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-20">
+      <div class="max-w-2xl">
+        <h2
+          class="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-5xl"
+        >
+          Jak pracujemy
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {% for step in service.process %}
+          {{ serviceStepCard(step, loop.index0) }}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-white w-full">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-20">
+      <div class="max-w-2xl">
+        <h2
+          class="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-5xl"
+        >
+          FAQ
+        </h2>
+      </div>
+
+      <div class="mt-10 space-y-4">
+        {% for item in service.faq %}
+          {{ faqItem(item) }}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-lime text-brand-ink w-full">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-20">
+      <div
+        class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between"
+      >
+        <div class="max-w-3xl">
+          <h2
+            class="font-heading text-3xl leading-tight font-bold tracking-tight sm:text-5xl"
+          >
+            {{ service.cta.title }}
+          </h2>
+          <p class="text-brand-ink/80 mt-4 text-sm leading-relaxed sm:text-lg">
+            {{ service.cta.description }}
+          </p>
+        </div>
+
+        <a
+          href="/#contact"
+          data-open-hero-contact
+          class="bg-brand-ink text-brand-white inline-flex w-full items-center justify-center rounded-full px-8 py-4 text-sm font-semibold sm:w-auto"
+        >
+          {{ service.cta.label }}
+        </a>
+      </div>
+    </div>
+  </section>
+</main>

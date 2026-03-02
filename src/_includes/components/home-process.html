@@ -1,0 +1,56 @@
+{% from "macros/ui.njk" import homeProcessStep %} {% set processSection =
+homeSections.process %}
+
+<section id="process" class="bg-brand-white text-brand-ink w-full">
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-20">
+    <div
+      class="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div class="max-w-2xl">
+        <span
+          class="bg-brand-lime text-brand-ink inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold tracking-wide"
+        >
+          {{ processSection.badge }}
+        </span>
+
+        <h2
+          class="font-heading mt-6 text-3xl leading-tight font-bold tracking-tight sm:text-5xl"
+        >
+          {{ processSection.title }}
+        </h2>
+
+        <p
+          class="text-brand-ink/80 mt-4 text-sm leading-relaxed sm:mt-6 sm:text-lg"
+        >
+          {{ processSection.description }}
+        </p>
+      </div>
+
+      <div class="flex sm:justify-end">
+        <a
+          href="{{ processSection.cta.href }}"
+          data-open-hero-contact
+          class="bg-brand-blue text-brand-white inline-flex w-full items-center justify-center rounded-full px-8 py-4 text-sm font-semibold transition-transform duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 sm:w-auto"
+        >
+          {{ processSection.cta.label }}
+        </a>
+      </div>
+    </div>
+
+    <div class="relative mt-12 sm:mt-16">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute top-5 right-0 left-0 hidden lg:block"
+      >
+        <div class="mx-auto max-w-6xl px-0">
+          <div class="border-brand-ink/20 w-full border-t border-dashed"></div>
+        </div>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {% for step in processSection.steps %} {{ homeProcessStep(step,
+        loop.index0) }} {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

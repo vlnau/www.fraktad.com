@@ -1,0 +1,42 @@
+{% from "macros/ui.njk" import faqItem %} {% set faqSection = homeSections.faq
+%}
+
+<section id="faq" class="bg-brand-white text-brand-ink w-full">
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-20">
+    <div
+      class="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div class="max-w-2xl">
+        <span
+          class="bg-brand-lime text-brand-ink inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold tracking-wide"
+        >
+          {{ faqSection.badge }}
+        </span>
+        <h2
+          class="font-heading mt-6 text-3xl leading-tight font-bold tracking-tight sm:text-5xl"
+        >
+          {{ faqSection.title }}
+        </h2>
+        <p
+          class="text-brand-ink/80 mt-4 text-sm leading-relaxed sm:mt-6 sm:text-lg"
+        >
+          {{ faqSection.description }}
+        </p>
+      </div>
+
+      <div class="flex sm:justify-end">
+        <a
+          href="{{ faqSection.cta.href }}"
+          data-open-hero-contact
+          class="bg-brand-blue text-brand-white inline-flex w-full items-center justify-center rounded-full px-8 py-4 text-sm font-semibold sm:w-auto"
+        >
+          {{ faqSection.cta.label }}
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 space-y-4 sm:mt-16">
+      {% for item in faqSection.items %} {{ faqItem(item) }} {% endfor %}
+    </div>
+  </div>
+</section>

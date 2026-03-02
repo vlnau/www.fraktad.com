@@ -1,0 +1,72 @@
+{% set pageTitle = (seo and seo.title) or title or site.defaultTitle %} {% set
+pageDescription = (seo and seo.description) or description or
+site.defaultDescription %} {% set canonicalPath = (seo and seo.canonicalPath) or
+page.url or '/' %} {% set canonicalUrl = (seo and seo.canonicalUrl) or (site.url
++ canonicalPath) %} {% set ogImage = (seo and seo.image) or site.defaultOgImage
+%} {% set ogImageUrl = ogImage if 'http' in ogImage else site.url + ogImage %}
+{% set ogType = (seo and seo.type) or 'website' %} {% set robotsValue = (seo and
+seo.robots) or 'index,follow' %}
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{ pageTitle }}</title>
+<meta name="description" content="{{ pageDescription }}" />
+<meta name="robots" content="{{ robotsValue }}" />
+<link rel="canonical" href="{{ canonicalUrl }}" />
+<meta name="theme-color" content="#ffffff" />
+
+<meta property="og:site_name" content="{{ site.name }}" />
+<meta property="og:type" content="{{ ogType }}" />
+<meta property="og:locale" content="{{ site.locale }}" />
+<meta property="og:title" content="{{ pageTitle }}" />
+<meta property="og:description" content="{{ pageDescription }}" />
+<meta property="og:url" content="{{ canonicalUrl }}" />
+<meta property="og:image" content="{{ ogImageUrl }}" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ pageTitle }}" />
+<meta name="twitter:description" content="{{ pageDescription }}" />
+<meta name="twitter:image" content="{{ ogImageUrl }}" />
+
+{% if site.organization %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ site.organization.legalName }}",
+    "url": "{{ site.url }}",
+    "logo": "{{ site.url }}{{ site.organization.logo }}",
+    "sameAs": [
+      {% for social in site.socialLinks if social.external %}
+        "{{ social.href }}"{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+</script>
+{% endif %}
+
+<link rel="stylesheet" href="/assets/vendor/fonts/manrope/400.css" />
+<link rel="stylesheet" href="/assets/vendor/fonts/manrope/500.css" />
+<link rel="stylesheet" href="/assets/vendor/fonts/manrope/600.css" />
+<link rel="stylesheet" href="/assets/vendor/fonts/manrope/700.css" />
+<link rel="stylesheet" href="/assets/vendor/fonts/manrope/800.css" />
+<link rel="stylesheet" href="/assets/vendor/fonts/ibm-plex-sans/500.css" />
+<link rel="stylesheet" href="/assets/vendor/fonts/ibm-plex-sans/600.css" />
+<link rel="stylesheet" href="/assets/vendor/fonts/ibm-plex-sans/700.css" />
+<link rel="stylesheet" href="/assets/vendor/fontawesome/css/all.min.css" />
+{% if needsSwiper %}
+<link rel="stylesheet" href="/assets/vendor/swiper/swiper-bundle.min.css" />
+{% endif %} {% if site.integrations.turnstileSiteKey %}
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+></script>
+{% endif %}
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="{{ site.name }} Blog"
+  href="{{ site.url }}/feed.xml"
+/>
+<link rel="stylesheet" href="/assets/css/styles.css" />

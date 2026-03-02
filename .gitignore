@@ -1,0 +1,5 @@
+node_modules
+_site
+src/assets/css/styles.css
+src/assets/js
+.cache

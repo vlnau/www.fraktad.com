@@ -1,0 +1,13 @@
+<svg
+  class="h-8 w-auto"
+  viewBox="0 0 430 430"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <path d="M400 80L352 176H208L160 80H400Z" fill="currentColor"></path>
+  <path
+    d="M256 272H160L112 368L64 272L112 176H208L256 272Z"
+    fill="currentColor"
+  ></path>
+</svg>

@@ -1,0 +1,44 @@
+{
+  "name": "fraktadcom",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "build": "run-s clean validate:data build:css build:ts build:site",
+    "build:css": "tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/styles.css --minify",
+    "build:ts": "run-s typecheck bundle:ts",
+    "bundle:ts": "esbuild ./src/assets/ts/main.ts --bundle --splitting --format=esm --target=es2022 --sourcemap --outdir=./src/assets/js --entry-names=[name] --chunk-names=chunks/[name]-[hash]",
+    "build:site": "eleventy",
+    "clean": "rimraf _site src/assets/css/styles.css src/assets/js",
+    "dev": "run-s validate:data dev:watch",
+    "dev:watch": "run-p watch:css watch:ts serve",
+    "serve": "eleventy --serve",
+    "watch:css": "tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/styles.css --watch",
+    "watch:ts": "esbuild ./src/assets/ts/main.ts --bundle --splitting --format=esm --target=es2022 --sourcemap --outdir=./src/assets/js --entry-names=[name] --chunk-names=chunks/[name]-[hash] --watch",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "validate:data": "node ./scripts/validate-data.mjs",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-img": "^6.0.4",
+    "@tailwindcss/cli": "^4.2.0",
+    "esbuild": "^0.27.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.8.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "rimraf": "^6.1.3",
+    "tailwindcss": "^4.2.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-sans": "^5.2.8",
+    "@fontsource/manrope": "^5.2.8",
+    "@fortawesome/fontawesome-free": "^7.2.0",
+    "swiper": "^12.0.3"
+  }
+}

@@ -1,0 +1,65 @@
+---
+layout: layouts/base.html
+---
+
+<main class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+  <a
+    href="/blog/"
+    class="text-brand-ink/70 hover:text-brand-blue inline-flex items-center gap-2 text-sm font-semibold transition-colors"
+  >
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    Wroc do bloga
+  </a>
+
+  <article class="mt-8">
+    <p class="text-brand-ink/60 text-xs font-semibold tracking-wide">
+      {{ meta }} {% if dateLabel %} • {{ dateLabel }} {% endif %}
+    </p>
+
+    <h1 class="font-heading mt-4 text-3xl leading-tight font-bold sm:text-5xl">
+      {{ title }}
+    </h1>
+
+    {% if excerpt %}
+    <p
+      class="text-brand-ink/80 mt-6 max-w-3xl text-base leading-relaxed sm:text-lg"
+    >
+      {{ excerpt }}
+    </p>
+    {% endif %}
+
+    <div
+      class="text-brand-ink/90 mt-10 space-y-6 text-base leading-relaxed sm:text-lg"
+    >
+      {{ content | safe }}
+    </div>
+  </article>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{{ title }}",
+      "description": "{{ excerpt | default(meta) }}",
+      "inLanguage": "{{ lang | default(site.language) }}",
+      "datePublished": "{{ (date or page.date).toISOString() }}",
+      "dateModified": "{{ (date or page.date).toISOString() }}",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ site.url }}{{ page.url }}"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "{{ site.organization.legalName }}"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ site.organization.legalName }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ site.url }}{{ site.organization.logo }}"
+        }
+      }
+    }
+  </script>
+</main>

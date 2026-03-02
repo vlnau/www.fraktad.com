@@ -1,0 +1,137 @@
+{% set mainNav = site.navigation.main | default([]) %}
+{% set phoneHref = 'tel:' ~ site.contact.phoneRaw %}
+{% set quickContactHref = site.contact.whatsappUrl | default(phoneHref) %}
+
+<header
+  data-site-header
+  class="fixed inset-x-0 top-4 z-100 px-2 transition-all duration-300 sm:px-4"
+>
+  <div
+    class="bg-brand-white/75 text-brand-ink mx-auto flex w-full max-w-6xl items-center justify-between gap-2 rounded-full px-3 py-2 backdrop-blur-3xl sm:gap-4 sm:px-6 sm:py-3 lg:gap-20 lg:px-6 lg:py-3"
+  >
+    <a
+      href="/"
+      aria-label="Fraktad home"
+      class="inline-flex items-center gap-2 transition-colors sm:ml-3"
+    >
+      {% include "icons/logotype.svg" %}
+      <span class="font-heading text-sm font-extrabold tracking-tight">
+        Fraktad
+      </span>
+    </a>
+
+    <nav class="hidden gap-6 font-sans text-sm font-medium lg:flex">
+      {% for item in mainNav %}
+      <a
+        class="hover:bg-brand-ink/5 rounded-full px-3.5 py-2.5"
+        data-nav
+        href="{{ item.href }}"
+      >
+        {{ item.label }}
+      </a>
+      {% endfor %}
+    </nav>
+
+    <div class="flex items-center justify-center gap-1 sm:gap-2">
+      <a
+        href="{{ phoneHref }}"
+        class="hidden h-10 cursor-pointer flex-col items-end justify-center gap-1 px-1 text-xs sm:flex"
+      >
+        <div class="leading-none font-medium">
+          <i class="fa-solid fa-bolt"></i>
+          <span>{{ site.labels.callUs }}</span>
+        </div>
+        <span class="leading-none text-sm font-bold">{{ site.contact.phoneDisplay }}</span>
+      </a>
+      <a
+        href="{{ quickContactHref }}"
+        aria-label="WhatsApp"
+        target="_blank"
+        rel="noreferrer"
+        class="text-brand-white hover:bg-brand-blue bg-brand-ink flex size-10 cursor-pointer items-center justify-center gap-1 rounded-full"
+      >
+        <i class="fa-brands fa-whatsapp text-brand-white"></i>
+      </a>
+      <a
+        href="/#contact"
+        data-open-hero-contact
+        class="text-brand-white hover:bg-brand-lime bg-brand-blue hover:text-brand-ink hidden h-10 cursor-pointer items-center justify-center rounded-full px-4 text-xs font-bold lg:flex"
+      >
+        {{ site.labels.contactUs }}
+      </a>
+      <button
+        type="button"
+        data-mobile-nav-toggle
+        aria-controls="mobile-nav-panel"
+        aria-expanded="false"
+        aria-label="Otwórz menu"
+        class="border-brand-ink/20 hover:bg-brand-ink/5 relative inline-flex size-10 cursor-pointer items-center justify-center rounded-full border text-brand-ink transition-colors duration-300 lg:hidden"
+      >
+        <span
+          data-mobile-nav-line="top"
+          class="absolute h-[0.14rem] w-5 -translate-y-[0.26rem] rounded-full bg-current transition-transform duration-300"
+        ></span>
+        <span
+          data-mobile-nav-line="middle"
+          class="absolute h-[0.14rem] w-5 rounded-full bg-current transition-opacity duration-300"
+        ></span>
+        <span
+          data-mobile-nav-line="bottom"
+          class="absolute h-[0.14rem] w-5 translate-y-[0.26rem] rounded-full bg-current transition-transform duration-300"
+        ></span>
+      </button>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    data-mobile-nav-overlay
+    aria-label="Zamknij menu"
+    class="pointer-events-none fixed inset-0 z-[90] bg-black/45 opacity-0 transition-opacity duration-300 lg:hidden"
+  ></button>
+
+  <div
+    id="mobile-nav-panel"
+    data-mobile-nav-panel
+    class="pointer-events-none fixed inset-x-2 top-20 z-[90] max-h-[92vh] -translate-y-2 overflow-y-auto overscroll-y-contain rounded-3xl border border-brand-ink/15 bg-brand-white/95 p-4 opacity-0 backdrop-blur-3xl transition-all duration-300 sm:inset-x-4 sm:top-24 lg:hidden"
+  >
+    <nav class="flex flex-col gap-1 font-sans text-sm font-medium">
+      {% for item in mainNav %}
+      <a
+        class="hover:bg-brand-ink/5 rounded-xl px-4 py-2.5"
+        data-nav
+        data-mobile-nav-link
+        href="{{ item.href }}"
+      >
+        {{ item.label }}
+      </a>
+      {% endfor %}
+    </nav>
+
+    <div class="space-y-2 mt-4 border-t border-brand-ink/10 pt-4">
+      <a
+        href="{{ phoneHref }}"
+        class="hover:bg-brand-ink/5 flex min-h-12 items-center justify-between rounded-xl border border-brand-ink/15 px-4 py-3 transition-colors"
+      >
+        <span class="text-sm font-medium">{{ site.labels.callUs }}</span>
+        <span class="text-sm font-bold">{{ site.contact.phoneDisplay }}</span>
+      </a>
+      <a
+        href="{{ quickContactHref }}"
+        target="_blank"
+        rel="noreferrer"
+        class="bg-brand-ink text-brand-white hover:bg-brand-blue flex min-h-12 items-center justify-center rounded-xl px-4 py-3 text-xs font-bold transition-colors"
+      >
+        WhatsApp
+      </a>
+      <a
+        href="/#contact"
+        data-mobile-nav-link
+        data-open-hero-contact
+        class="bg-brand-blue text-brand-white hover:bg-brand-lime hover:text-brand-ink flex min-h-12 items-center justify-center rounded-xl px-4 py-3 text-xs font-bold transition-colors"
+      >
+        {{ site.labels.contactUs }}
+      </a>
+    </div>
+  </div>
+</header>

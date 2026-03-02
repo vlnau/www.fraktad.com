@@ -1,0 +1,32 @@
+{% set postUrl = post.url or post.href %} {% set postTitle = post.data.title or
+post.title %} {% set postMeta = post.data.meta or post.meta %} {% set
+postExcerpt = post.data.excerpt or post.excerpt %}
+
+<article class="h-full">
+  <a
+    href="{{ postUrl }}"
+    class="group focus-visible:ring-brand-blue/30 block h-full rounded-3xl focus-visible:ring-2 focus-visible:outline-none"
+  >
+    <div
+      class="border-brand-ink/10 bg-brand-white hover:border-brand-blue flex h-full flex-col rounded-3xl border p-6 transition-all duration-300 hover:-translate-y-1 sm:p-8"
+    >
+      <p class="text-brand-ink/60 text-xs font-semibold tracking-wide">
+        {{ postMeta }}
+      </p>
+      <h3 class="font-heading mt-4 text-xl font-bold tracking-tight">
+        {{ postTitle }}
+      </h3>
+      <p class="text-brand-ink/70 mt-3 text-sm leading-relaxed">
+        {{ postExcerpt }}
+      </p>
+      <span
+        class="text-brand-blue mt-auto inline-flex items-center gap-3 pt-8 text-sm font-semibold"
+      >
+        Czytaj artykul
+        <i
+          class="fa-solid fa-arrow-right transition-transform duration-200 group-hover:translate-x-1"
+        ></i>
+      </span>
+    </div>
+  </a>
+</article>

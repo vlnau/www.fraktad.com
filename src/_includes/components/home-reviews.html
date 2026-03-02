@@ -1,0 +1,90 @@
+{% set reviewsSection = homeSections.reviews %}
+
+<section id="reviews" class="bg-brand-white text-brand-ink w-full">
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-20">
+    <div
+      class="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between"
+    >
+      <div class="max-w-2xl">
+        <h2
+          class="font-heading text-4xl leading-tight font-bold tracking-tight sm:text-5xl"
+        >
+          {{ reviewsSection.title }}
+        </h2>
+        <p
+          class="text-brand-ink/80 mt-6 text-base leading-relaxed text-balance sm:text-lg"
+        >
+          {{ reviewsSection.description }}
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-12">
+      <div class="relative">
+        <button
+          type="button"
+          aria-label="{{ reviewsSection.prevAriaLabel }}"
+          class="js-reviews-prev border-brand-ink/20 text-brand-ink hover:border-brand-blue hover:text-brand-blue absolute top-1/2 -left-4 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border bg-white/90 transition-colors duration-200 sm:inline-flex"
+        >
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        </button>
+
+        <div
+          class="swiper js-reviews-swiper overflow-hidden pt-3 [--swiper-pagination-bullet-inactive-color:#0F172A] [--swiper-pagination-bullet-inactive-opacity:0.2] [--swiper-pagination-bullet-size:0.6rem] [--swiper-pagination-color:#00A7E1]"
+        >
+          <div class="swiper-wrapper">
+            {% for review in reviews %} {% include "components/review-card.html"
+            %} {% endfor %}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          aria-label="{{ reviewsSection.nextAriaLabel }}"
+          class="js-reviews-next border-brand-ink/20 text-brand-ink hover:border-brand-blue hover:text-brand-blue absolute top-1/2 -right-4 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border bg-white/90 transition-colors duration-200 sm:inline-flex"
+        >
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="js-reviews-pagination mt-8 flex justify-center"></div>
+    </div>
+
+    <div
+      class="bg-brand-lime text-brand-ink mt-20 rounded-3xl px-6 py-10 sm:px-10 sm:py-14"
+    >
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-10 lg:flex-row lg:items-center lg:justify-between"
+      >
+        <div class="max-w-2xl">
+          <h3
+            class="font-heading text-2xl font-extrabold tracking-tight text-balance sm:text-3xl lg:text-4xl"
+          >
+            {{ reviewsSection.conversionBar.title }}
+          </h3>
+
+          <p
+            class="text-brand-ink/80 mt-4 text-sm leading-relaxed text-balance sm:text-base"
+          >
+            {{ reviewsSection.conversionBar.description }}
+          </p>
+        </div>
+
+        <div
+          class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row lg:justify-end"
+        >
+          <a
+            href="{{ reviewsSection.conversionBar.cta.href }}"
+            data-open-hero-contact
+            class="group bg-brand-ink text-brand-white inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-semibold transition-all duration-300 hover:scale-[1.02] hover:opacity-90 sm:text-base"
+          >
+            {{ reviewsSection.conversionBar.cta.label }}
+            <i
+              class="fa-solid fa-arrow-right ml-3 transition-transform duration-300 group-hover:translate-x-1"
+            ></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

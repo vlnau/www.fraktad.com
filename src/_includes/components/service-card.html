@@ -1,0 +1,53 @@
+<article class="h-full">
+  <a
+    href="{{ card.href }}"
+    class="focus-visible:ring-brand-blue/30 block h-full cursor-pointer rounded-3xl focus-visible:ring-2 focus-visible:outline-none"
+  >
+    <div
+      class="relative aspect-[5/4] overflow-hidden rounded-3xl border-2 border-transparent sm:aspect-square"
+    >
+      <div class="absolute inset-0">
+        <div class="{{ card.overlayLayerClass }}"></div>
+      </div>
+
+      <div
+        class="{{ card.defaultTextClass }} relative z-10 flex h-full flex-col p-6"
+      >
+        <div class="relative">
+          <h3
+            class="font-heading pr-20 text-4xl font-bold tracking-tighter sm:pr-24 sm:text-4xl"
+          >
+            <span class="block"
+              >{{ card.titleLines[0] | default(card.titleDisplay) }}</span
+            >
+            <span class="block">{{ card.titleLines[1] | default('') }}</span>
+          </h3>
+          <span class="pointer-events-none absolute top-0 right-0 z-10">
+            <span class="{{ card.defaultIconWrapperClass }} relative shrink-0">
+              <span
+                aria-hidden="true"
+                class="border-current/45 pointer-events-none absolute -inset-1 rounded-full border animate-ping motion-reduce:animate-none"
+              ></span>
+              <span
+                aria-hidden="true"
+                class="border-current/25 pointer-events-none absolute -inset-2 rounded-full border animate-ping [animation-delay:180ms] motion-reduce:animate-none"
+              ></span>
+              <i class="{{ card.defaultIconClass }} relative"></i>
+            </span>
+          </span>
+        </div>
+
+        <p class="{{ card.mobileDescriptionClass }}">{{ card.description }}</p>
+
+        <div class="mt-auto pt-10">
+          <span
+            class="inline-flex w-full items-center justify-between text-base font-semibold"
+          >
+            {{ card.ctaLabel }}
+            <i class="fa-solid fa-arrow-right text-lg"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+</article>

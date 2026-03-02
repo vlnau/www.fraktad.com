@@ -1,0 +1,119 @@
+{% set heroCases = portfolioCards | default([]) %}
+
+<div
+  data-open-hero-contact
+  role="button"
+  tabindex="0"
+  aria-label="Otwórz formularz kontaktowy"
+  class="js-hero-scene relative isolate h-[15.8rem] w-[25.5rem] origin-center scale-[1.2] cursor-pointer will-change-transform [perspective:62rem] [transform-style:preserve-3d] sm:h-[16.2rem] sm:w-[27rem] sm:scale-[1.13] lg:h-[23rem] lg:w-[35rem] lg:scale-[1.16]"
+>
+  <div
+    class="absolute right-[2.2rem] bottom-[1.8rem] left-[2.2rem] z-0 h-[5.6rem] rounded-full bg-[radial-gradient(circle_at_center,#0ea5e940_0%,#0ea5e91a_48%,#0ea5e900_78%)] blur-[1rem] lg:right-[3.8rem] lg:bottom-[2.6rem] lg:left-[3rem] lg:h-[7.2rem]"
+  ></div>
+
+  <div class="absolute inset-0 z-[20] [transform-style:preserve-3d]">
+    <article
+      class="absolute top-[1.3rem] left-1/2 z-[20] flex h-[11.7rem] w-[19.4rem] [transform:translateX(-50%)_rotateY(-15deg)_rotateX(9deg)_translateZ(0.5rem)] flex-col overflow-hidden rounded-[1.2rem] border border-white/70 bg-white/80 shadow-[0_1.1rem_2.4rem_rgba(15,23,42,0.18)] backdrop-blur-[0.08rem] sm:h-[12.3rem] sm:w-[20.4rem] lg:top-[2.4rem] lg:left-[2.9rem] lg:h-[15rem] lg:w-[25rem] lg:[transform:rotateY(-18deg)_rotateX(11deg)_translateZ(1.1rem)]"
+    >
+      <header
+        class="flex h-[1.7rem] items-center gap-[0.26rem] border-b border-slate-200/80 bg-white/85 px-[0.62rem] lg:h-[1.95rem] lg:px-[0.78rem]"
+      >
+        <span
+          class="h-[0.34rem] w-[0.34rem] rounded-full bg-slate-300 lg:h-[0.38rem] lg:w-[0.38rem]"
+        ></span>
+        <span
+          class="h-[0.34rem] w-[0.34rem] rounded-full bg-slate-300 lg:h-[0.38rem] lg:w-[0.38rem]"
+        ></span>
+        <span
+          class="h-[0.34rem] w-[0.34rem] rounded-full bg-slate-300 lg:h-[0.38rem] lg:w-[0.38rem]"
+        ></span>
+        <span
+          class="ml-auto rounded-full border border-slate-200 bg-slate-50 px-[0.36rem] py-[0.16rem] text-xs leading-none font-semibold text-slate-500 lg:px-[0.42rem] lg:py-[0.2rem]"
+        >
+          www.fraktad.com
+        </span>
+      </header>
+
+      <div
+        class="js-hero-sites-carousel relative flex-1 overflow-hidden bg-slate-100"
+      >
+        {% if (heroCases | length) > 0 %} {% for card in heroCases %}
+        <figure
+          class="js-hero-sites-slide {% if loop.first %}opacity-100 pointer-events-auto{% endif %} pointer-events-none absolute inset-0 z-10 m-0 h-full w-full bg-slate-100 opacity-0 transition-opacity duration-500 ease-out"
+        >
+          <img
+            src="{{ card.imageSrc | url }}"
+            alt="{{ card.imageAlt | default(card.title) }}"
+            class="h-full w-full object-cover object-center"
+            loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
+            decoding="async"
+          />
+          <figcaption
+            class="absolute right-[0.34rem] bottom-[0.34rem] left-[0.34rem] z-[2] line-clamp-2 rounded-[0.58rem] bg-black/45 px-[0.4rem] py-[0.24rem] text-xs leading-[1.2] font-semibold text-white backdrop-blur-[0.08rem] lg:right-[0.48rem] lg:bottom-[0.46rem] lg:left-[0.48rem] lg:px-[0.5rem] lg:py-[0.3rem]"
+          >
+            {{ card.title }}
+          </figcaption>
+        </figure>
+        {% endfor %} {% else %}
+        <figure
+          class="js-hero-sites-slide pointer-events-auto absolute inset-0 z-10 m-0 h-full w-full bg-slate-100 opacity-100 transition-opacity duration-500 ease-out"
+        >
+          <img
+            src="{{ '/assets/images/cases/construction.jpg' | url }}"
+            alt="Realizacja strony"
+            class="h-full w-full object-cover object-center"
+            loading="eager"
+            decoding="async"
+          />
+          <figcaption
+            class="absolute right-[0.34rem] bottom-[0.34rem] left-[0.34rem] z-[2] line-clamp-2 rounded-[0.58rem] bg-black/45 px-[0.4rem] py-[0.24rem] text-xs leading-[1.2] font-semibold text-white backdrop-blur-[0.08rem] lg:right-[0.48rem] lg:bottom-[0.46rem] lg:left-[0.48rem] lg:px-[0.5rem] lg:py-[0.3rem]"
+          >
+            Wybrane realizacje
+          </figcaption>
+        </figure>
+        {% endif %}
+      </div>
+    </article>
+  </div>
+
+  <div class="absolute inset-0 z-[90] [transform-style:preserve-3d]">
+    <div
+      aria-hidden="true"
+      class="hero-signal-chip absolute top-[8.8rem] left-[1.4rem] z-[80] inline-flex [transform:translateZ(2.2rem)] items-center gap-[0.26rem] rounded-full border border-slate-200/90 bg-white/92 px-[0.66rem] py-[0.38rem] text-xs leading-none font-semibold tracking-[0.01em] whitespace-nowrap text-slate-700 shadow-[0_0.45rem_0.9rem_rgba(15,23,42,0.15)] backdrop-blur-[0.08rem] sm:top-[9.05rem] sm:left-[1.7rem] lg:top-[9.7rem] lg:left-[1.8rem] lg:[transform:translateZ(3rem)] lg:px-[0.72rem] lg:py-[0.4rem]"
+    >
+      <span class="hero-signal-dot hero-signal-dot--sky" aria-hidden="true">
+        <span class="hero-signal-core hero-signal-core--sky"></span>
+      </span>
+      UI/UX
+    </div>
+    <div
+      aria-hidden="true"
+      class="hero-signal-chip hero-signal-chip--delay-1 absolute top-[1.35rem] left-[8.35rem] z-[130] inline-flex [transform:translateZ(5.5rem)] items-center gap-[0.26rem] rounded-full border border-slate-200/90 bg-white/92 px-[0.66rem] py-[0.38rem] text-xs leading-none font-semibold tracking-[0.01em] whitespace-nowrap text-slate-700 shadow-[0_0.45rem_0.9rem_rgba(15,23,42,0.15)] backdrop-blur-[0.08rem] sm:top-[1.5rem] sm:left-[9.45rem] lg:top-[1.95rem] lg:left-[14.8rem] lg:[transform:translateZ(7.2rem)] lg:px-[0.72rem] lg:py-[0.4rem]"
+    >
+      <span class="hero-signal-dot hero-signal-dot--emerald" aria-hidden="true">
+        <span class="hero-signal-core hero-signal-core--emerald"></span>
+      </span>
+      SEO Ready
+    </div>
+    <div
+      aria-hidden="true"
+      class="hero-signal-chip hero-signal-chip--delay-2 absolute right-[2.55rem] bottom-[1.95rem] z-[80] inline-flex [transform:translateZ(2.3rem)] items-center gap-[0.26rem] rounded-full border border-slate-200/90 bg-white/92 px-[0.66rem] py-[0.38rem] text-xs leading-none font-semibold tracking-[0.01em] whitespace-nowrap text-slate-700 shadow-[0_0.45rem_0.9rem_rgba(15,23,42,0.15)] backdrop-blur-[0.08rem] sm:right-[2.45rem] sm:bottom-[2.2rem] lg:right-[2.6rem] lg:bottom-[4.45rem] lg:[transform:translateZ(3.1rem)] lg:px-[0.72rem] lg:py-[0.4rem]"
+    >
+      <span class="hero-signal-dot hero-signal-dot--violet" aria-hidden="true">
+        <span class="hero-signal-core hero-signal-core--violet"></span>
+      </span>
+      E-commerce
+    </div>
+  </div>
+
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute bottom-[0.2rem] left-1/2 z-[150] -translate-x-1/2 lg:bottom-[1.2rem]"
+  >
+    <span
+      class="hero-click-hint border-brand-ink/20 bg-brand-white/95 text-brand-ink inline-flex size-10 items-center justify-center rounded-full border shadow-[0_0.5rem_1.1rem_rgba(15,23,42,0.2)] backdrop-blur-[0.08rem] lg:size-11"
+    >
+      <i class="fa-solid fa-hand-pointer text-sm"></i>
+    </span>
+  </div>
+</div>

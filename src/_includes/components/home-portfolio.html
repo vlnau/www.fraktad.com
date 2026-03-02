@@ -1,0 +1,45 @@
+{% set portfolioSection = homeSections.portfolio %}
+
+<section id="portfolio" class="bg-brand-white text-brand-ink w-full">
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-20">
+    <div
+      class="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-3">
+          <span
+            class="bg-brand-lime text-brand-ink inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold tracking-wide"
+          >
+            {{ portfolioSection.badge }}
+          </span>
+        </div>
+
+        <h2
+          class="font-heading mt-6 text-4xl leading-tight font-bold tracking-tight text-balance sm:text-5xl"
+        >
+          {{ portfolioSection.title }}
+        </h2>
+        <p
+          class="text-brand-ink/80 mt-4 text-sm leading-relaxed text-balance sm:mt-6 sm:text-lg"
+        >
+          {{ portfolioSection.description }}
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-12 grid w-full gap-6 sm:mt-16 sm:gap-8 lg:grid-cols-2">
+      {% for card in portfolioCards %} {% include
+      "components/portfolio-card.html" %} {% endfor %}
+    </div>
+
+    <div class="mt-12 text-center sm:mt-20">
+      <a
+        href="{{ portfolioSection.bottomCta.href }}"
+        data-open-hero-contact
+        class="bg-brand-ink text-brand-white inline-flex w-full items-center justify-center rounded-full px-10 py-5 text-sm font-semibold sm:w-auto"
+      >
+        {{ portfolioSection.bottomCta.label }}
+      </a>
+    </div>
+  </div>
+</section>

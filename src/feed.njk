@@ -1,0 +1,22 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.name }} Blog</title>
+    <link>{{ site.url }}/blog/</link>
+    <description>Praktyczne artykuły o stronach, marketingu i automatyzacjach.</description>
+    <language>{{ site.language }}</language>
+    {% for post in collections.blogPosts %}
+      <item>
+        <title>{{ post.data.title }}</title>
+        <link>{{ site.url }}{{ post.url }}</link>
+        <guid isPermaLink="true">{{ site.url }}{{ post.url }}</guid>
+        <pubDate>{{ (post.data.date or post.date).toUTCString() }}</pubDate>
+        <description><![CDATA[{{ post.data.excerpt | default('') }}]]></description>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>

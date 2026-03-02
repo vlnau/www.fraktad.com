@@ -1,0 +1,74 @@
+<article class="h-full">
+  {% set cardStatus = card.status | default('ready') %} {% set isReady =
+  cardStatus == 'ready' %}
+  <a
+    {%
+    if
+    isReady
+    %}href="{{ card.href }}"
+    {%
+    endif
+    %}
+    class="{% if isReady %}group {% endif %}focus-visible:ring-brand-blue/30 {% if not isReady %}cursor-default{% endif %} block h-full rounded-3xl focus-visible:ring-2 focus-visible:outline-none"
+    {%
+    if
+    not
+    isReady
+    %}aria-disabled="true"
+    {%
+    endif
+    %}
+  >
+    <div
+      class="bg-brand-white border-brand-ink/10 text-brand-ink {% if isReady %}group-hover:border-brand-blue group-hover:-translate-y-1{% endif %} flex h-full flex-col overflow-hidden rounded-3xl border transition-all duration-200"
+    >
+      <div class="bg-brand-ink aspect-[16/10] overflow-hidden">
+        <img
+          src="{{ card.imageSrc }}"
+          alt="{{ card.imageAlt }}"
+          class="{% if isReady %}group-hover:scale-[1.03]{% endif %} h-full w-full object-cover transition-transform duration-300"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <div class="flex flex-1 flex-col p-6 sm:p-8 lg:p-10">
+        <h3
+          class="{{ card.titleClass | default('text-brand-ink') }} font-heading line-clamp-2 text-xl font-bold tracking-tight sm:text-2xl"
+        >
+          {{ card.title }}
+        </h3>
+
+        <p class="text-brand-ink/70 mt-3 text-sm leading-relaxed">
+          {{ card.description }}
+        </p>
+
+        <div class="mt-auto flex items-center justify-between pt-8">
+          <span class="text-brand-ink/60 text-sm font-semibold">
+            {{ card.client }}
+          </span>
+
+          {% if not isReady %}
+          <span
+            class="bg-brand-orange/10 text-brand-orange inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold tracking-normal"
+          >
+            <span
+              class="bg-brand-orange h-2 w-2 animate-pulse rounded-full"
+            ></span>
+            {{ card.statusText | default('W realizacji') }}
+          </span>
+          {% else %}
+          <span
+            class="text-brand-blue inline-flex items-center gap-3 text-sm font-semibold"
+          >
+            {{ card.ctaLabel | default('Zobacz realizację') }}
+            <i
+              class="fa-solid fa-arrow-right {% if isReady %}group-hover:translate-x-1{% endif %} transition-transform duration-200"
+            ></i>
+          </span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </a>
+</article>

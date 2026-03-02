@@ -1,0 +1,127 @@
+{% set footerCompanyLinks = site.navigation.footerCompany | default([]) %} {%
+set footerServiceLinks = site.navigation.footerServices | default([]) %} {% set
+footerLegalLinks = site.navigation.legal | default([]) %} {% set socialLinks =
+site.socialLinks | default([]) %} {% set phoneHref = 'tel:' ~
+site.contact.phoneRaw %} {% set emailHref = 'mailto:' ~ site.contact.email %}
+
+<!-- FOOTER -->
+<footer class="w-full">
+  <div
+    class="bg-brand-ink text-brand-white mx-auto max-w-7xl rounded-t-4xl px-8 pt-16 pb-24"
+  >
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-12">
+      <!-- Brand -->
+      <div class="sm:col-span-3">
+        <a
+          href="/"
+          aria-label="Fraktad home"
+          class="text-brand-white inline-flex items-center gap-2 transition-colors"
+        >
+          {% include "icons/logotype.svg" %}
+          <span class="font-heading text-base font-extrabold tracking-tight">
+            Fraktad
+          </span>
+        </a>
+      </div>
+
+      <!-- Navigation -->
+      <div class="sm:col-span-3">
+        <h3
+          class="font-heading text-sm font-bold tracking-wide text-white/80 uppercase"
+        >
+          Firma
+        </h3>
+        <ul class="mt-6 space-y-4 text-sm text-white/70">
+          {% for item in footerCompanyLinks %}
+          <li>
+            <a href="{{ item.href }}" class="hover:text-white"
+              >{{ item.label }}</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="sm:col-span-3">
+        <h3
+          class="font-heading text-sm font-bold tracking-wide text-white/80 uppercase"
+        >
+          Oferta
+        </h3>
+        <ul class="mt-6 space-y-4 text-sm text-white/70">
+          {% for item in footerServiceLinks %}
+          <li>
+            <a href="{{ item.href }}" class="hover:text-white"
+              >{{ item.label }}</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="sm:col-span-3">
+        <h3
+          class="font-heading text-sm font-bold tracking-wide text-white/80 uppercase"
+        >
+          Kontakt
+        </h3>
+
+        <div class="mt-6 space-y-4 text-sm text-white/70">
+          <a
+            href="{{ phoneHref }}"
+            class="flex items-center gap-3 hover:text-white"
+          >
+            <i class="fa-solid fa-phone"></i>
+            <span>{{ site.contact.phoneDisplay }}</span>
+          </a>
+
+          <a
+            href="{{ emailHref }}"
+            class="flex items-center gap-3 hover:text-white"
+          >
+            <i class="fa-solid fa-envelope"></i>
+            <span>{{ site.contact.email }}</span>
+          </a>
+
+          <div class="flex items-center gap-4 pt-4">
+            {% for social in socialLinks %}
+            <a
+              href="{{ social.href }}"
+              aria-label="{{ social.label }}"
+              {%
+              if
+              social.external
+              %}
+              target="_blank"
+              rel="noreferrer"
+              {%
+              endif
+              %}
+              class="bg-brand-white text-brand-ink flex h-10 w-10 items-center justify-center rounded-full text-lg"
+            >
+              <i class="{{ social.icon }}"></i>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="mt-16 h-px w-full bg-white/10"></div>
+
+    <!-- Bottom -->
+    <div
+      class="mt-8 flex flex-col items-center justify-between gap-6 text-sm text-white/60 lg:flex-row"
+    >
+      <p>{{ site.name }} <span data-year>2025</span></p>
+      <div class="flex flex-col items-center gap-8 sm:flex-row">
+        {% for item in footerLegalLinks %}
+        <a href="{{ item.href }}" class="hover:text-white">{{ item.label }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</footer>

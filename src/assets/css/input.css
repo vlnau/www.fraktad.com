@@ -1,0 +1,221 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-manrope: 'Manrope', sans-serif;
+  --font-ibm: 'IBM Plex Sans', sans-serif;
+  --color-brand-ink: #232733;
+  --color-brand-white: #ffffff;
+  --color-brand-blue: #0966ff;
+  --color-brand-lime: #c0ff70;
+  --color-brand-orange: #ff4400;
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: currentColor;
+  }
+
+  :root {
+    font-size: 3.75vw;
+    --site-header-offset: 5.5rem;
+  }
+
+  @media (width >= 40rem) {
+    :root {
+      font-size: 1.1111vw;
+      --site-header-offset: 7rem;
+    }
+  }
+
+  html {
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    min-height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    font-family: var(--font-manrope);
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-ink);
+  }
+
+  body.has-site-header {
+    padding-top: var(--site-header-offset);
+  }
+
+  :target {
+    scroll-margin-top: var(--site-header-offset);
+  }
+
+  h1 {
+    font-size: 2.25em;
+  }
+
+  h2 {
+    font-size: 1.875em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+}
+
+@layer components {
+  .hero-signal-chip {
+    animation: hero-chip-glow 2.8s ease-in-out infinite;
+  }
+
+  .hero-signal-chip--delay-1 {
+    animation-delay: 0.35s;
+  }
+
+  .hero-signal-chip--delay-2 {
+    animation-delay: 0.7s;
+  }
+
+  .hero-signal-dot {
+    position: relative;
+    display: inline-flex;
+    width: 0.34rem;
+    height: 0.34rem;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+  }
+
+  .hero-signal-dot::before,
+  .hero-signal-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    animation: hero-radio-wave 1.9s ease-out infinite;
+    opacity: 0;
+  }
+
+  .hero-signal-dot::after {
+    animation-delay: 0.5s;
+  }
+
+  .hero-signal-dot--sky::before,
+  .hero-signal-dot--sky::after {
+    background-color: rgb(14 165 233 / 0.5);
+  }
+
+  .hero-signal-dot--emerald::before,
+  .hero-signal-dot--emerald::after {
+    background-color: rgb(16 185 129 / 0.5);
+  }
+
+  .hero-signal-dot--violet::before,
+  .hero-signal-dot--violet::after {
+    background-color: rgb(139 92 246 / 0.5);
+  }
+
+  .hero-signal-core {
+    position: relative;
+    z-index: 1;
+    width: 0.28rem;
+    height: 0.28rem;
+    border-radius: 9999px;
+    animation: hero-signal-blink 1.9s ease-in-out infinite;
+  }
+
+  .hero-signal-core--sky {
+    background-color: rgb(14 165 233);
+  }
+
+  .hero-signal-core--emerald {
+    background-color: rgb(16 185 129);
+  }
+
+  .hero-signal-core--violet {
+    background-color: rgb(139 92 246);
+  }
+
+  .hero-click-hint {
+    animation: hero-click-bob 1.35s ease-in-out infinite;
+  }
+
+  @media (width >= 64rem) {
+    .hero-signal-dot {
+      width: 0.38rem;
+      height: 0.38rem;
+    }
+
+    .hero-signal-core {
+      width: 0.3rem;
+      height: 0.3rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-signal-chip,
+    .hero-signal-dot::before,
+    .hero-signal-dot::after,
+    .hero-signal-core,
+    .hero-click-hint {
+      animation: none;
+    }
+  }
+}
+
+@keyframes hero-chip-glow {
+  0%,
+  100% {
+    border-color: rgb(226 232 240 / 0.9);
+    box-shadow: 0 0.45rem 0.9rem rgb(15 23 42 / 0.15);
+  }
+
+  55% {
+    border-color: rgb(9 102 255 / 0.45);
+    box-shadow: 0 0.55rem 1.05rem rgb(9 102 255 / 0.2);
+  }
+}
+
+@keyframes hero-radio-wave {
+  0% {
+    transform: scale(0.45);
+    opacity: 0.72;
+  }
+
+  82% {
+    transform: scale(2.45);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(2.45);
+    opacity: 0;
+  }
+}
+
+@keyframes hero-signal-blink {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+
+  55% {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-click-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-0.18rem);
+  }
+}

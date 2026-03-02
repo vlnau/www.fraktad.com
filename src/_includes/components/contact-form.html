@@ -1,0 +1,99 @@
+<form
+  action="/api/contact"
+  method="post"
+  data-contact-form
+  data-contact-source="contact-page"
+  class="border-brand-ink/10 max-w-2xl space-y-6 rounded-3xl border bg-white p-6 sm:p-8"
+>
+  <input
+    type="text"
+    name="website"
+    tabindex="-1"
+    autocomplete="off"
+    class="hidden"
+    aria-hidden="true"
+  />
+  <input type="hidden" name="source" value="contact-page" />
+  <div class="grid gap-6 sm:grid-cols-2">
+    <div class="space-y-2">
+      <label class="text-brand-ink/90 block text-sm font-semibold" for="name">
+        Imię
+      </label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        required
+        class="border-brand-ink/15 text-brand-ink focus:border-brand-blue focus:ring-brand-blue/20 w-full rounded-xl border bg-white px-4 py-3 text-sm transition outline-none focus:ring-2"
+        placeholder="Twoje imię"
+      />
+    </div>
+    <div class="space-y-2">
+      <label class="text-brand-ink/90 block text-sm font-semibold" for="phone">
+        Telefon
+      </label>
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        class="border-brand-ink/15 text-brand-ink focus:border-brand-blue focus:ring-brand-blue/20 w-full rounded-xl border bg-white px-4 py-3 text-sm transition outline-none focus:ring-2"
+        placeholder="+48 668 295 097"
+      />
+    </div>
+  </div>
+
+  <div class="space-y-2">
+    <label class="text-brand-ink/90 block text-sm font-semibold" for="email">
+      Email
+    </label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      required
+      class="border-brand-ink/15 text-brand-ink focus:border-brand-blue focus:ring-brand-blue/20 w-full rounded-xl border bg-white px-4 py-3 text-sm transition outline-none focus:ring-2"
+      placeholder="kontakt@twojafirma.pl"
+    />
+  </div>
+
+  <div class="space-y-2">
+    <label class="text-brand-ink/90 block text-sm font-semibold" for="message">
+      Krótko o projekcie
+    </label>
+    <textarea
+      id="message"
+      name="message"
+      rows="5"
+      required
+      class="border-brand-ink/15 text-brand-ink focus:border-brand-blue focus:ring-brand-blue/20 w-full rounded-xl border bg-white px-4 py-3 text-sm transition outline-none focus:ring-2"
+      placeholder="Opisz zakres: strona, sklep, integracje lub marketing."
+    ></textarea>
+  </div>
+
+  {% if site.integrations.turnstileSiteKey %}
+  <div>
+    <div
+      class="cf-turnstile"
+      data-sitekey="{{ site.integrations.turnstileSiteKey }}"
+    ></div>
+  </div>
+  {% endif %}
+
+  <p
+    data-contact-form-status
+    class="text-brand-ink/80 hidden text-sm"
+    role="status"
+    aria-live="polite"
+  ></p>
+
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+    <button
+      type="submit"
+      data-contact-form-submit
+      class="bg-brand-blue text-brand-white inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-semibold transition-all duration-300 hover:scale-[1.02] hover:opacity-90"
+    >
+      Wyślij zapytanie
+    </button>
+    <p class="text-brand-ink/60 text-sm">Odpowiadamy zwykle w ciągu 24h.</p>
+  </div>
+</form>

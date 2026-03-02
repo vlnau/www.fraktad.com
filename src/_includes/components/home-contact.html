@@ -1,0 +1,147 @@
+{% from "macros/ui.njk" import contactPanelAction %} {% set contactSection =
+homeSections.contact %}
+
+<section id="contact" class="bg-brand-white text-brand-ink w-full">
+  <div class="mx-auto max-w-6xl px-6 py-24 sm:px-10">
+    <div class="max-w-3xl">
+      <span
+        class="bg-brand-lime text-brand-ink inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold tracking-wide"
+      >
+        {{ contactSection.badge }}
+      </span>
+
+      <h2
+        class="font-heading mt-6 text-3xl leading-tight font-bold tracking-tight sm:text-5xl"
+      >
+        {{ contactSection.title }}
+      </h2>
+
+      <p class="text-brand-ink/70 mt-6 text-base leading-relaxed sm:text-lg">
+        {{ contactSection.description }}
+      </p>
+    </div>
+
+    <div class="mt-20 flex flex-col gap-12 lg:flex-row">
+      <div class="flex-1">
+        <div class="bg-brand-white text-brand-ink rounded-4xl">
+          <form
+            action="/api/contact"
+            method="post"
+            data-contact-form
+            data-contact-source="home-section"
+            class="space-y-8"
+          >
+            <input
+              type="text"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+              class="hidden"
+              aria-hidden="true"
+            />
+            <input type="hidden" name="source" value="home-section" />
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {% for field in contactSection.form.fields %} {% set
+              isFieldRequired = field.name != 'phone' %}
+              <div class="{% if field.fullWidth %}sm:col-span-2{% endif %}">
+                <label
+                  for="{{ field.id }}"
+                  class="mb-2 block text-sm font-semibold"
+                >
+                  {{ field.label }}
+                </label>
+
+                {% if field.type == "textarea" %}
+                <textarea
+                  id="{{ field.id }}"
+                  name="{{ field.name }}"
+                  rows="{{ field.rows or 5 }}"
+                  {%
+                  if
+                  isFieldRequired
+                  %}required{%
+                  endif
+                  %}
+                  class="border-brand-ink/10 focus:ring-brand-blue bg-brand-white w-full resize-none rounded-3xl border px-6 py-4 text-sm focus:ring-2 focus:outline-none"
+                  placeholder="{{ field.placeholder }}"
+                ></textarea>
+                {% else %}
+                <input
+                  id="{{ field.id }}"
+                  name="{{ field.name }}"
+                  type="{{ field.type }}"
+                  {%
+                  if
+                  isFieldRequired
+                  %}required{%
+                  endif
+                  %}
+                  class="border-brand-ink/10 focus:ring-brand-blue bg-brand-white w-full rounded-3xl border px-6 py-4 text-sm focus:ring-2 focus:outline-none"
+                  placeholder="{{ field.placeholder }}"
+                />
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+
+            {% if site.integrations.turnstileSiteKey %}
+            <div>
+              <div
+                class="cf-turnstile"
+                data-sitekey="{{ site.integrations.turnstileSiteKey }}"
+              ></div>
+            </div>
+            {% endif %}
+
+            <p
+              data-contact-form-status
+              class="text-brand-ink/80 hidden text-sm"
+              role="status"
+              aria-live="polite"
+            ></p>
+
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <button
+                type="submit"
+                data-contact-form-submit
+                class="bg-brand-blue text-brand-white inline-flex items-center justify-center rounded-full px-10 py-5 text-sm font-semibold transition-all duration-300 hover:scale-[1.02] hover:opacity-90"
+              >
+                {{ contactSection.form.submitLabel }}
+                <i class="fa-solid fa-arrow-right ml-3"></i>
+              </button>
+
+              <span class="text-brand-ink/60 text-sm">
+                {{ contactSection.form.responseLabel }}
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <aside class="lg:w-[24rem]">
+        <div class="space-y-10">
+          <div class="bg-brand-lime text-brand-ink rounded-4xl p-8">
+            <p class="text-sm font-semibold tracking-wide">
+              {{ contactSection.directContactTitle }}
+            </p>
+
+            <div class="mt-8 space-y-6">
+              {% for action in contactSection.directActions %} {{
+              contactPanelAction(action) }} {% endfor %}
+            </div>
+          </div>
+
+          <div class="bg-brand-orange rounded-4xl p-8">
+            <p class="text-sm font-semibold tracking-wide">
+              {{ contactSection.availability.title }}
+            </p>
+
+            <p class="text-brand-white/90 mt-4 text-sm leading-relaxed">
+              {{ contactSection.availability.description }}
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
