@@ -38,6 +38,12 @@ Set these environment variables in Cloudflare Pages:
 - `TURNSTILE_SECRET` (optional): enables server-side captcha validation
 - `TURNSTILE_SITE_KEY` (optional, build variable): renders captcha widgets in forms
 
+### Troubleshooting
+
+- `POST /api/contact -> 405` or `404` usually means deployment was done as static-only
+  assets, without Pages Functions. Deploy with `--functions functions` or use
+  Git-connected Cloudflare Pages build from repository root.
+
 ## Project structure
 
 ```text

@@ -30,13 +30,20 @@ const MAX_LENGTH = {
   pagePath: 200,
 } as const;
 
-const jsonResponse = (body: Record<string, unknown>, status = 200): Response =>
+const DEFAULT_RESPONSE_HEADERS = {
+  'content-type': 'application/json; charset=UTF-8',
+  'cache-control': 'no-store',
+} as const;
+const RESEND_USER_AGENT = 'fraktadcom-contact-form/1.0';
+
+const jsonResponse = (
+  body: Record<string, unknown>,
+  status = 200,
+  extraHeaders: Record<string, string> = {},
+): Response =>
   new Response(JSON.stringify(body), {
     status,
-    headers: {
-      'content-type': 'application/json; charset=UTF-8',
-      'cache-control': 'no-store',
-    },
+    headers: { ...DEFAULT_RESPONSE_HEADERS, ...extraHeaders },
   });
 
 const normalizeText = (value: unknown): string =>
@@ -181,7 +188,14 @@ const parseResendError = async (response: Response): Promise<string> => {
 export const onRequestOptions = async (): Promise<Response> =>
   new Response(null, {
     status: 204,
-    headers: { allow: 'POST, OPTIONS' },
+    headers: { ...DEFAULT_RESPONSE_HEADERS, allow: 'GET, POST, OPTIONS' },
+  });
+
+export const onRequestGet = async (): Promise<Response> =>
+  jsonResponse({
+    ok: true,
+    message: 'Contact endpoint is online.',
+    methods: ['GET', 'POST', 'OPTIONS'],
   });
 
 export const onRequestPost = async ({
@@ -284,6 +298,7 @@ export const onRequestPost = async ({
     headers: {
       authorization: `Bearer ${resendApiKey}`,
       'content-type': 'application/json; charset=UTF-8',
+      'user-agent': RESEND_USER_AGENT,
     },
     body: JSON.stringify(resendPayload),
   });

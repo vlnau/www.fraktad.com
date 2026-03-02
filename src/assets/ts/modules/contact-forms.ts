@@ -90,6 +90,12 @@ const submitContactForm = async (form: HTMLFormElement): Promise<void> => {
       body: JSON.stringify(payload),
     });
 
+    if (response.status === 404 || response.status === 405) {
+      throw new Error(
+        'Endpoint formularza jest niedostępny (deploy bez Pages Functions).',
+      );
+    }
+
     let responseData: ContactApiResponse | null = null;
     try {
       responseData = (await response.json()) as ContactApiResponse;
