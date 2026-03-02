@@ -1,6 +1,6 @@
-{% set mainNav = site.navigation.main | default([]) %}
-{% set phoneHref = 'tel:' ~ site.contact.phoneRaw %}
-{% set quickContactHref = site.contact.whatsappUrl | default(phoneHref) %}
+{% set mainNav = site.navigation.main | default([]) %} {% set phoneHref = 'tel:'
+~ site.contact.phoneRaw %} {% set quickContactHref = site.contact.whatsappUrl |
+default(phoneHref) %}
 
 <header
   data-site-header
@@ -41,7 +41,9 @@
           <i class="fa-solid fa-bolt"></i>
           <span>{{ site.labels.callUs }}</span>
         </div>
-        <span class="leading-none text-sm font-bold">{{ site.contact.phoneDisplay }}</span>
+        <span class="text-sm leading-none font-bold"
+          >{{ site.contact.phoneDisplay }}</span
+        >
       </a>
       <a
         href="{{ quickContactHref }}"
@@ -65,7 +67,7 @@
         aria-controls="mobile-nav-panel"
         aria-expanded="false"
         aria-label="Otwórz menu"
-        class="border-brand-ink/20 hover:bg-brand-ink/5 relative inline-flex size-10 cursor-pointer items-center justify-center rounded-full border text-brand-ink transition-colors duration-300 lg:hidden"
+        class="border-brand-ink/20 hover:bg-brand-ink/5 text-brand-ink relative inline-flex size-10 cursor-pointer items-center justify-center rounded-full border transition-colors duration-300 lg:hidden"
       >
         <span
           data-mobile-nav-line="top"
@@ -93,7 +95,7 @@
   <div
     id="mobile-nav-panel"
     data-mobile-nav-panel
-    class="pointer-events-none fixed inset-x-2 top-20 z-[90] max-h-[92vh] -translate-y-2 overflow-y-auto overscroll-y-contain rounded-3xl border border-brand-ink/15 bg-brand-white/95 p-4 opacity-0 backdrop-blur-3xl transition-all duration-300 sm:inset-x-4 sm:top-24 lg:hidden"
+    class="border-brand-ink/15 bg-brand-white/95 pointer-events-none fixed inset-x-2 top-20 z-[90] max-h-[92vh] -translate-y-2 overflow-y-auto overscroll-y-contain rounded-3xl border p-4 opacity-0 backdrop-blur-3xl transition-all duration-300 sm:inset-x-4 sm:top-24 lg:hidden"
   >
     <nav class="flex flex-col gap-1 font-sans text-sm font-medium">
       {% for item in mainNav %}
@@ -108,10 +110,10 @@
       {% endfor %}
     </nav>
 
-    <div class="space-y-2 mt-4 border-t border-brand-ink/10 pt-4">
+    <div class="border-brand-ink/10 mt-4 space-y-2 border-t pt-4">
       <a
         href="{{ phoneHref }}"
-        class="hover:bg-brand-ink/5 flex min-h-12 items-center justify-between rounded-xl border border-brand-ink/15 px-4 py-3 transition-colors"
+        class="hover:bg-brand-ink/5 border-brand-ink/15 flex min-h-12 items-center justify-between rounded-xl border px-4 py-3 transition-colors"
       >
         <span class="text-sm font-medium">{{ site.labels.callUs }}</span>
         <span class="text-sm font-bold">{{ site.contact.phoneDisplay }}</span>

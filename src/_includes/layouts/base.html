@@ -7,9 +7,9 @@
     class="{{ bodyClass | default('min-h-screen') }} {% if showSiteChrome != false and headerOffset != false %}has-site-header{% endif %}"
   >
     {% if showSiteChrome != false %} {% include "components/site-header.html" %}
-    {% endif %} {{ content | safe }} {% include "components/contact-modal.html" %}
-    {% if showSiteChrome != false %} {% include "components/site-footer.html" %}
-    {% endif %}
+    {% endif %} {{ content | safe }} {% include "components/contact-modal.html"
+    %} {% if showSiteChrome != false %} {% include "components/site-footer.html"
+    %} {% endif %}
 
     <script type="module" src="/assets/js/main.js"></script>
   </body>

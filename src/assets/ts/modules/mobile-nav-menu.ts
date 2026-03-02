@@ -14,7 +14,9 @@ export const initMobileNavMenu = (): (() => void) | void => {
   const overlay = siteHeader.querySelector<HTMLButtonElement>(
     '[data-mobile-nav-overlay]',
   );
-  const panel = siteHeader.querySelector<HTMLElement>('[data-mobile-nav-panel]');
+  const panel = siteHeader.querySelector<HTMLElement>(
+    '[data-mobile-nav-panel]',
+  );
 
   if (!toggleButton || !overlay || !panel) {
     return;
@@ -89,7 +91,10 @@ export const initMobileNavMenu = (): (() => void) | void => {
     const isOpen = state.mobileNavOpen;
 
     toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    toggleButton.setAttribute('aria-label', isOpen ? 'Zamknij menu' : 'Otwórz menu');
+    toggleButton.setAttribute(
+      'aria-label',
+      isOpen ? 'Zamknij menu' : 'Otwórz menu',
+    );
     toggleButton.classList.toggle('bg-brand-ink', isOpen);
     toggleButton.classList.toggle('text-brand-white', isOpen);
     toggleButton.classList.toggle('border-brand-ink', isOpen);
