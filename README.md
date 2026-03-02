@@ -43,6 +43,14 @@ Set these environment variables in Cloudflare Pages:
 If you use GA4 through GTM, keep only `GOOGLE_TAG_MANAGER_ID` to avoid duplicate
 page-view tracking.
 
+### GDPR cookie consent
+
+- Cookie consent UI is rendered from `src/_includes/components/cookie-consent.html`.
+- Runtime logic is in `src/assets/ts/modules/cookie-consent.ts`.
+- GA/GTM scripts are loaded only after analytics consent is accepted.
+- User choice is stored in `localStorage` and can be changed via "Ustawienia cookies"
+  in the footer.
+
 ### Troubleshooting
 
 - `POST /api/contact -> 405` or `404` usually means deployment was done as static-only

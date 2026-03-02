@@ -6,19 +6,10 @@
   <body
     class="{{ bodyClass | default('min-h-screen') }} {% if showSiteChrome != false and headerOffset != false %}has-site-header{% endif %}"
   >
-    {% if site.integrations.googleTagManagerId %}
-    <noscript>
-      <iframe
-        src="https://www.googletagmanager.com/ns.html?id={{ site.integrations.googleTagManagerId }}"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe>
-    </noscript>
-    {% endif %} {% if showSiteChrome != false %} {% include
-    "components/site-header.html" %} {% endif %} {{ content | safe }} {% include
-    "components/contact-modal.html" %} {% if showSiteChrome != false %} {%
-    include "components/site-footer.html" %} {% endif %}
+    {% if showSiteChrome != false %} {% include "components/site-header.html" %}
+    {% endif %} {{ content | safe }} {% include "components/contact-modal.html"
+    %} {% include "components/cookie-consent.html" %} {% if showSiteChrome !=
+    false %} {% include "components/site-footer.html" %} {% endif %}
 
     <script type="module" src="/assets/js/main.js"></script>
   </body>

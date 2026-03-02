@@ -120,7 +120,16 @@ site.contact.phoneRaw %} {% set emailHref = 'mailto:' ~ site.contact.email %}
       <div class="flex flex-col items-center gap-8 sm:flex-row">
         {% for item in footerLegalLinks %}
         <a href="{{ item.href }}" class="hover:text-white">{{ item.label }}</a>
-        {% endfor %}
+        {% endfor %} {% if site.integrations.ga4MeasurementId or
+        site.integrations.googleTagManagerId %}
+        <button
+          type="button"
+          data-cookie-open-settings-global
+          class="cursor-pointer hover:text-white"
+        >
+          Ustawienia cookies
+        </button>
+        {% endif %}
       </div>
     </div>
   </div>

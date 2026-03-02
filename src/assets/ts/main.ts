@@ -3,6 +3,7 @@ import {
   type ModuleDefinition,
 } from './core/module-runner.js';
 import { initContactForms } from './modules/contact-forms.js';
+import { initCookieConsent } from './modules/cookie-consent.js';
 import { initCurrentYear } from './modules/current-year.js';
 import { initHeroContactModal } from './modules/hero-contact-modal.js';
 import { initHeroSceneFloat } from './modules/hero-scene-float.js';
@@ -15,6 +16,7 @@ import { initSiteUiShell } from './modules/site-ui-shell.js';
 
 const modules: ModuleDefinition[] = [
   { id: 'current-year', init: initCurrentYear },
+  { id: 'cookie-consent', init: initCookieConsent },
   { id: 'contact-forms', init: initContactForms },
   { id: 'site-ui-shell', init: initSiteUiShell },
   { id: 'mobile-nav-menu', init: initMobileNavMenu },
